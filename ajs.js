@@ -125,4 +125,11 @@ ajs.css = function(path) {
  */
 ajs.extend({ maps: {} });
 
+/**
+ * @summary Set of tool modules
+ * @namespace ajs.tools 
+ * @description <p>Set of modules (namespaces) which contains tools to use in different situations.</p>
+ */
+ajs.extend({ tools: {} });
+
 
