@@ -132,4 +132,9 @@ ajs.extend({ maps: {} });
  */
 ajs.extend({ tools: {} });
 
-
+/**
+ * @summary Set of user interface modules
+ * @namespace ajs.ui 
+ * @description <p>Set of modules (namespaces) which contains user interface resources.</p>
+ */
+ajs.extend({ ui: {} });
