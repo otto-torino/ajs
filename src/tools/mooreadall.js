@@ -448,8 +448,8 @@ ajs.tools.mooreadall = (function()  {
 			_private[this.id].layer.inject(document.body);
 			var coord = _private[this.id].layer.getCoordinates();
 			_private[this.id].layer.setStyles({
-				top: this.getViewport().cY-coord.height/2,
-				left: this.getViewport().cX-coord.width/2,
+				top: ajs.shared.getViewport().cY-coord.height/2,
+				left: ajs.shared.getViewport().cX-coord.width/2,
 				visibility: 'visible'
 			});
 
@@ -672,47 +672,6 @@ ajs.tools.mooreadall = (function()  {
 			});
 
 			return maxZ;
-		}.protect(),
-		/**
-		 * @summary Gets the viewport coordinates (width, height, left offest, top offset, coordinates of the center point).   
-		 * @memberof ajs.tools.mooreadall.prototype
-		 * @return {Object} Viewport coordinates
-		 * @method
-		 * @protected
-		 * @example
-		 *	{'width':width, 'height':height, 'left':left, 'top':top, 'cX':cX, 'cY':cY}
-		 */
-		getViewport: function() {
-	
-			var width, height, left, top, cX, cY;
-
- 			// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
- 			if (typeof window.innerWidth != 'undefined') {
-   				width = window.innerWidth,
-   				height = window.innerHeight
- 			}
-			// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
- 			else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth !='undefined' && document.documentElement.clientWidth != 0) {
-    				width = document.documentElement.clientWidth,
-    				height = document.documentElement.clientHeight
- 			}
-
-			top = typeof self.pageYOffset != 'undefined' 
-				? self.pageYOffset 
-				: (document.documentElement && document.documentElement.scrollTop)
-					? document.documentElement.scrollTop
-					: document.body.clientHeight;
-
-			left = typeof self.pageXOffset != 'undefined' 
-				? self.pageXOffset 
-				: (document.documentElement && document.documentElement.scrollTop)
-					? document.documentElement.scrollLeft
-					: document.body.clientWidth;
-	
-			cX = left + width/2;
-			cY = top + height/2;
-
-			return {'width':width, 'height':height, 'left':left, 'top':top, 'cX':cX, 'cY':cY};	     
 		}.protect()
 	});
 
