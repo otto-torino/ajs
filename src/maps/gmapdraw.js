@@ -927,7 +927,9 @@ ajs.maps.gmapdraw.tool = (function()  {
 		 * @return void
 		 */
 		prepareTool: function() {
-			_protected_prop[this.id].map.updateTips(this.tipsText());
+			if(_private[this.id].tips_map_ctrl) {
+				_protected_prop[this.id].map.updateTips(this.tipsText());
+			}
 		},
 		/** 
 		 * @summary Adds an item to the items
