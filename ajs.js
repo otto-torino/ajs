@@ -20,8 +20,8 @@ ajs.meta = {
  * @summary Namespace extension
  * @memberof ajs
  * @description Extends the parent namespace with the deep object given
- * @param obj The deep object
- * @param [parent=ajs] The namespace to be extended
+ * @param {Object} obj The deep object
+ * @param {Object} [parent=ajs] The namespace to be extended
  * @return {Object} the extended namespace
  * @example
  * 	// creates ajs.utilities.widgets and ajs.utilities.ui namespaces
@@ -52,8 +52,8 @@ ajs.extend = function(obj, parent) {
  * @summary Library loader
  * @memberof ajs
  * @description Loads dinamically the requested ajs module and executes the given callback when loading is complete
- * @param mdls {Mixed} The module name or an array of module's names
- * @param callback The function to execute when all modules are loaded and ready
+ * @param {Mixed} mdls The module name or an array of module's names
+ * @param {Function} callback The function to execute when all modules are loaded and ready
  * @example 
  * 	ajs.use([ajs.ui.tree], function() {
  *		// the library is ready
