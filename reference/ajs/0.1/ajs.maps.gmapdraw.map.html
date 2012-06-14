@@ -1,0 +1,4430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ajs reference: Class: map</title>
+    
+    <script src="http://shjs.sourceforge.net/sh_main.min.js"> </script>
+    <script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/node-dark.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Class: map</h1>
+    
+    
+
+
+
+<section>
+    
+<header>
+    <h2>
+        <span class="ancestors"><a href="ajs.html">ajs</a><a href="ajs.maps.html">.maps</a><a href="ajs.maps.gmapdraw.html">.gmapdraw</a>.</span>
+    
+    map
+    </h2>
+    
+        <div class="class-description"><p>This class handles the drawing tools used to draw over a google map and allows the drawed data exportation.</p>
+           <p>The map manages also some controllers</p>
+           <ul>
+           <li>clear map controller</li> 
+           <li>export map controller</li> 
+           <li>geocoder text field controller</li> 
+           <li>tips controller</li> 
+           </ul>
+           <p>Moreover every drawing tool has its own controller, which may be specifically set or used in its default form.</p>
+           <p>Each map controller may be specified custom, may be removed setting the related option to <code>null</code> or used in its default form.</p>
+           <p>Once instantiated the class and set the tools by options or instantiating direclty the drawing tool classes and adding them to the map,
+           see <a href="ajs.maps.gmapdraw.map.html#addTool">ajs.maps.gmapdraw.map#addTool</a>, call the render method to render the widget. 
+           Then it is possible to continue configuring the widget adding or removing tools,
+           customizing the google map instance which is returned by the <a href="ajs.maps.gmapdraw.map.html#gmap">ajs.maps.gmapdraw.map#gmap</a> method.</p>
+           <p>When defining specific map controllers, be sure to make them handle the proper map methods.</p>
+           <p>Very important: be sure to load the google maps library yourself in the head of the document!</p></div>
+    
+</header>  
+
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+<dt>
+    <h4 class="name" id="map"><span class="type-signature"></span>new map</h4>
+    
+    
+    <p class="summary">Google maps drawing class, provides tools for drawing over a google map instance, and export drawed data.</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>canvas</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The id attribute of the map container</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">A class options object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>center</code></td>
+            
+            
+            <td class="type">
+            
+                        Array
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    new Array(45, 7)
+                
+                </td>
+            
+            
+            <td class="description last">The initial map center coordinates, (lat, lng).</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>zoom</code></td>
+            
+            
+            <td class="type">
+            
+                        Number
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    8
+                
+                </td>
+            
+            
+            <td class="description last">The the initial map zoom level.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tools</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+            
+            <td class="description last">The object containing the tool's names and optionsa to be activated when initializing the map. 
+					   It's a shortcut to easily define set and active tools objects.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The point tool init object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The id attribute or the element itself which controls the tool, default the built-in menu voice</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The tool options object, see <a href="ajs.maps.gmapdraw.pointTool.html">ajs.maps.gmapdraw.pointTool</a> for available properties</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>polyline</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The polyline tool init object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The id attribute or the element itself which controls the tool, default the built-in menu voice</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The tool options object, see <a href="ajs.maps.gmapdraw.polylineTool.html">ajs.maps.gmapdraw.polylineTool</a> for available properties</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>polygon</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The polygon tool init object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The id attribute or the element itself which controls the tool, default the built-in menu voice</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The tool options object, see <a href="ajs.maps.gmapdraw.polygonTool.html">ajs.maps.gmapdraw.polygonTool</a> for available properties</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>circle</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The circle tool init object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The id attribute or the element itself which controls the tool, default the built-in menu voice</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    undefined
+                
+                </td>
+            
+            
+            <td class="description last">The tool options object, see <a href="ajs.maps.gmapdraw.circleTool.html">ajs.maps.gmapdraw.circleTool</a> for available properties</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>clear_map_ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    'default'
+                
+                </td>
+            
+            
+            <td class="description last">The clear map controller (clears all drawings over the map). 
+                                                   If 'default' the built-in controller is used, if <code>null</code> the clear map 
+                                                   functionality is removed. If id attribute or an element the clear map functionality is attached to the element.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>export_map_ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    'default'
+                
+                </td>
+            
+            
+            <td class="description last">The export map controller (exports all shapes drawed over the map). 
+                                                    If 'default' the built-in controller is used, if <code>null</code> the export map 
+                                                    functionality is removed. If id attribute or an element the clear map functionality is attached to the element.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>export_map_callback</code></td>
+            
+            
+            <td class="type">
+            
+                        Function
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+            
+            <td class="description last">The callback function to call when the export map button is pressed. The callback function receives one argument, the exported data as
+                                                     returned by the ajs.maps.gmapdraw.map#exportMap method.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>geocoder_map_field</code></td>
+            
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">Whether or not to add the gecoder functionality which allows to center the map in a point defined through an address, or to
+                                           pass the lat,lng coordinates found to the map click handlers (exactly as click over the map in a lat,lng point).</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tips_map_ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    'default'
+                
+                </td>
+            
+            
+            <td class="description last">The help tips map controller (shows tips about drawing tools). 
+                                                    If 'default' the built-in controller is used, if <code>null</code> the tips box is not shown, 
+                                                    if id attribute or an element the functionality is attached to the element.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 94</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sh_javascript"><code>var mymap = new ajs.maps.gmapdraw.map('my_map_canvas_id', {
+	tools: {
+		point: {
+			options: {
+				max_items: 5
+			}
+		},
+		circle: {}	
+	}
+});</code></pre>
+
+    
+</dd>
+
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="addControllersContainer"><span class="type-signature">&lt;protected> </span>addControllersContainer</h4>
+    
+    
+    <p class="summary">Adds an empty container over the map which may contain default controllers if any</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 154</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="addDefaultCtrl"><span class="type-signature"></span>addDefaultCtrl</h4>
+    
+    
+    <p class="summary">Adds a controller in the default controllers container</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The controller to be added</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 174</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="addTool"><span class="type-signature"></span>addTool</h4>
+    
+    
+    <p class="summary">Adds a drawing tool</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>tool</code></td>
+            
+            
+            <td class="type">
+            
+                        <a href="ajs.maps.gmapdraw.tool.html">ajs.maps.gmapdraw.tool</a>
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The tool object</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 213</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="clearMap"><span class="type-signature"></span>clearMap</h4>
+    
+    
+    <p class="summary">Clears the map</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 563</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="exportMap"><span class="type-signature"></span>exportMap</h4>
+    
+    
+    <p class="summary">Exports the map drawed shapes as data points</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 600</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    data The drawed data in an object format
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">Object</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sh_javascript"><code>{
+	'point': [
+		{lat: 45, lng: 12},
+		{lat: 43, lng: 16}
+	],
+	'polyline': [
+		[
+			{lat: 45, lng: 12},
+			{lat: 42, lng: 12},
+			{lat: 42.6, lng: 11}
+		],
+		[
+			{lat: 36.7, lng: 11.2},
+			{lat: 39, lng: 12}
+		],
+	],
+	'circle': [
+		{lat: 45, lng: 12, radius: 10000},
+		{lat: 44, lng: 11, radius: 230000}
+	]
+}</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="geocoderCenter"><span class="type-signature"></span>geocoderCenter</h4>
+    
+    
+    <p class="summary">Sets the map center converting the geocoder_field input address in a LatLng point</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 523</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="geocoderDraw"><span class="type-signature"></span>geocoderDraw</h4>
+    
+    
+    <p class="summary">Fires a map click in a LatLng point converted from the geocoder_field input address</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 542</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getDrawingTool"><span class="type-signature"></span>getDrawingTool</h4>
+    
+    
+    <p class="summary">Gets the active drawing tool</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 466</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The drawing tool
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">ajs.maps.gmapdraw.tool</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getTool"><span class="type-signature"></span>getTool</h4>
+    
+    
+    <p class="summary">Gets a tool object giving its name</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>tool_name</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">One of the supported tools name</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 230</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The tool object if set or null
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">ajs.maps.gmapdraw.tool</span> |
+		
+		<span class="param-type">null</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="gmap"><span class="type-signature"></span>gmap</h4>
+    
+    
+    <p class="summary">Returns the google map instance google.maps.Map</p>
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        The google map class instance allows to customize direclty some map properties using the google.maps.Map public interface
+    </div>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 668</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The google map instance
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">google.maps.Map</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sh_javascript"><code>var mygmap = ajs.maps.gmapdraw.map.gmap();
+mygmap.setCenter(new google.maps.LatLng(45, 7));</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="importMap"><span class="type-signature"></span>importMap</h4>
+    
+    
+    <p class="summary">Imports data to the map</p>
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Data must be in the same form as the exported ones, see <a href="ajs.maps.gmapdraw.map.html#exportMap">ajs.maps.gmapdraw.map#exportMap</a>
+    </div>
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The drawed data in an object format</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 622</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="initControllers"><span class="type-signature"></span>initControllers</h4>
+    
+    
+    <p class="summary">Initializes all the map controllers</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 304</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="initMap"><span class="type-signature"></span>initMap</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Initializes the google map and its events
+    </div>
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 275</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="initMapTips"><span class="type-signature"></span>initMapTips</h4>
+    
+    
+    <p class="summary">Returns the init text shown in the tips controller</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 497</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    text The initial tip text
+</div>
+
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+		<span class="param-type">String</span> 
+		
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="initTools"><span class="type-signature"></span>initTools</h4>
+    
+    
+    <p class="summary">Initializes the map set tools</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 474</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="mapClick"><span class="type-signature"></span>mapClick</h4>
+    
+    
+    <p class="summary">Handles the click event over the map, calling the active tool handler</p>
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This method is public since it has to be called by google maps api
+    </div>
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The callback parameter returned by the google.maps event handler</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 507</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="processOptions"><span class="type-signature">&lt;protected> </span>processOptions</h4>
+    
+    
+    <p class="summary">Processes the option object setting properly some class properties</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 187</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeClearMapController"><span class="type-signature">&lt;protected> </span>removeClearMapController</h4>
+    
+    
+    <p class="summary">Removes the clear map controller depending on the options.clear_map_ctrl value</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 344</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeExportMapController"><span class="type-signature">&lt;protected> </span>removeExportMapController</h4>
+    
+    
+    <p class="summary">Removes the export map controller depending on the options.clear_map_ctrl value</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 380</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeGeocoderMapField"><span class="type-signature">&lt;protected> </span>removeGeocoderMapField</h4>
+    
+    
+    <p class="summary">Removes the geocoder input text field and its controllers</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 442</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeTipsMapController"><span class="type-signature">&lt;protected> </span>removeTipsMapController</h4>
+    
+    
+    <p class="summary">Removes the tips map controller depending on the options.tips_map_ctrl value</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 414</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeTool"><span class="type-signature"></span>removeTool</h4>
+    
+    
+    <p class="summary">Removes a drawing tool</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>tool_name</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The name of the tool to be removed</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>tool</code></td>
+            
+            
+            <td class="type">
+            
+                        <a href="ajs.maps.gmapdraw.tool.html">ajs.maps.gmapdraw.tool</a>
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The tool object</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 248</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="render"><span class="type-signature"></span>render</h4>
+    
+    
+    <p class="summary">Renders the widget</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 262</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setCenter"><span class="type-signature"></span>setCenter</h4>
+    
+    
+    <p class="summary">Sets the center of the map</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>center</code></td>
+            
+            
+            <td class="type">
+            
+                        Array
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The [lat, lng] coordinates array</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 677</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setClearMapController"><span class="type-signature">&lt;protected> </span>setClearMapController</h4>
+    
+    
+    <p class="summary">Sets the clear map controller depending on the options.clear_map_ctrl value</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 319</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setClearMapCtrl"><span class="type-signature"></span>setClearMapCtrl</h4>
+    
+    
+    <p class="summary">Sets the clear map controller</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The clear map controller. 
+                             If 'default' the built-in controller is used, if <code>null</code> the clear map 
+                             functionality is removed. If id attribute or an element the clear map functionality is attached to the element.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 703</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setDrawingTool"><span class="type-signature"></span>setDrawingTool</h4>
+    
+    
+    <p class="summary">Sets the active drawing tool name</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>tool</code></td>
+            
+            
+            <td class="type">
+            
+                        <a href="ajs.maps.gmapdraw.tool.html">ajs.maps.gmapdraw.tool</a>
+                         | 
+                    
+                        null
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The actual drawing tool, null to have no active tool</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 455</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setExportMapController"><span class="type-signature">&lt;protected> </span>setExportMapController</h4>
+    
+    
+    <p class="summary">Sets the export map controller depending on the options.export_map_ctrl value</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 355</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setExportMapCtrl"><span class="type-signature"></span>setExportMapCtrl</h4>
+    
+    
+    <p class="summary">Sets the export map controller</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The export map controller. 
+                             If 'default' the built-in controller is used, if <code>null</code> the export map 
+                             functionality is removed. If id attribute or an element the export map functionality is attached to the element.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 718</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setGeocoderMapField"><span class="type-signature"></span>setGeocoderMapField</h4>
+    
+    
+    <p class="summary">Sets the geocoder map field option</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>set</code></td>
+            
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Whether or not to activate the geocoder functionality</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 731</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setGeocoderMapFieldController"><span class="type-signature">&lt;protected> </span>setGeocoderMapFieldController</h4>
+    
+    
+    <p class="summary">Sets the geocoder input text field and its controllers</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 424</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setTipsMapController"><span class="type-signature">&lt;protected> </span>setTipsMapController</h4>
+    
+    
+    <p class="summary">Sets the help tips map controller depending on the options.tips_map_ctrl value</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 391</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setTipsMapCtrl"><span class="type-signature"></span>setTipsMapCtrl</h4>
+    
+    
+    <p class="summary">Sets the tips map controller</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The help tips map controller (shows tips about drawing tools). 
+                             If 'default' the built-in controller is used, if <code>null</code> the tips box is not shown, 
+                             if id attribute or an element the functionality is attached to the element.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 749</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setZoom"><span class="type-signature"></span>setZoom</h4>
+    
+    
+    <p class="summary">Sets the zoom of the map</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>zoom</code></td>
+            
+            
+            <td class="type">
+            
+                        Number
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The zoom level</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 689</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="updateTips"><span class="type-signature"></span>updateTips</h4>
+    
+    
+    <p class="summary">Updates the text displayed in the tips controller</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The tip text</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 487</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+</article>
+
+</section>  
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="ajs.maps.gmapdraw.circleTool.html">circleTool</a></li><li><a href="ajs.maps.gmapdraw.map.html">map</a></li><li><a href="ajs.ui.moogallery.html">moogallery</a></li><li><a href="ajs.tools.mooreadall.html">mooreadall</a></li><li><a href="ajs.ui.tree.mootree.html">mootree</a></li><li><a href="ajs.maps.gmapdraw.pointTool.html">pointTool</a></li><li><a href="ajs.maps.gmapdraw.polygonTool.html">polygonTool</a></li><li><a href="ajs.maps.gmapdraw.polylineTool.html">polylineTool</a></li><li><a href="ajs.maps.gmapdraw.tool.html">tool</a></li></ul><h3>Namespaces</h3><ul><li><a href="ajs.html">ajs</a></li><li><a href="ajs.maps.gmapdraw.html">ajs.maps.gmapdraw</a></li><li><a href="ajs.maps.html">ajs.maps</a></li><li><a href="ajs.shared.html">ajs.shared</a></li><li><a href="ajs.tools.html">ajs.tools</a></li><li><a href="ajs.ui.tree.html">ajs.ui.tree</a></li><li><a href="ajs.ui.html">ajs.ui</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> on Thu Jun 14 2012 16:01:12 GMT+0200 (CEST)
+</footer>
+
+<script> sh_highlightDocument(); </script>
+</body>
+</html>

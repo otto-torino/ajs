@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ajs reference: Class: moogallery</title>
+    
+    <script src="http://shjs.sourceforge.net/sh_main.min.js"> </script>
+    <script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/node-dark.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Class: moogallery</h1>
+    
+    
+
+
+
+<section>
+    
+<header>
+    <h2>
+        <span class="ancestors"><a href="ajs.html">ajs</a><a href="ajs.ui.html">.ui</a>.</span>
+    
+    moogallery
+    </h2>
+    
+        <div class="class-description"><p>The class creates an interactive gallery of images.</p>
+           <p>The thumb images are loaded sequentially and inserted in a table structure automatically sized according to the size of the container,
+           then events are added in order to manage tips, lightbox widget (and navigation through images) and show images' meta information.</p></div>
+    
+</header>  
+
+<article>
+    <div class="container-overview">
+    
+    
+    
+        
+<dt>
+    <h4 class="name" id="moogallery"><span class="type-signature"></span>new moogallery</h4>
+    
+    
+    <p class="summary">Images gallery user interface.</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+            
+            <td class="type">
+            
+                        String
+                         | 
+                    
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the gallery container element or its id attribute</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>images_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Array
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the array of objects containing the images properties. Each object has the following properties:
+                          <ul> 
+                            <li>thumb: path to the thumb image</li> 
+                            <li>img: path to the image</li> 
+                            <li>title: image title</li> 
+                            <li>description: image description</li> 
+                            <li>credits: image credits</li> 
+                          </ul></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The class options object
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>onComplete</code></td>
+            
+            
+            <td class="type">
+            
+                        Function
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    function(){}
+                
+                </td>
+            
+            
+            <td class="description last">A callback to be called when the rendering of the thumb ended</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>show_bullets</code></td>
+            
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+            
+            <td class="description last">Whether or not to show bullets in lightbox widget</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 48</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sh_javascript"><code>	var mt = new ajs.ui.moogallery('mycontainer', [
+         {
+             thumb: 'http://my/thumb/path', 
+             img: 'http://my/img/path', 
+             title: 'image title', 
+             description: 'image description'
+             credits: 'image credits'
+         },
+         {
+             thumb: 'http://my/thumb/path2', 
+             img: 'http://my/img/path2', 
+             title: 'image title2', 
+             description: 'image description2'
+             credits: 'image credits2'
+         }
+    ]);</code></pre>
+
+    
+</dd>
+
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="changeImage"><span class="type-signature"></span>changeImage</h4>
+    
+    
+    <p class="summary">Changes the image displayed in the lightbox widget</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+            
+            <td class="type">
+            
+                        Number
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the index of the image to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 350</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="renderImage"><span class="type-signature">&lt;protected> </span>renderImage</h4>
+    
+    
+    <p class="summary">Inserts an image in the table creating a new cell and changing row if necessary</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>img_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the image options object to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 84</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="renderLightbox"><span class="type-signature"></span>renderLightbox</h4>
+    
+    
+    <p class="summary">Renders the lightbox widget</p>
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This methos is public since has to be calle in a chain process, but it's not necessary to call it directly
+    </div>
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>thumb</code></td>
+            
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the thumb image element</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>img_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the image options object to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 193</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="renderLightboxContainer"><span class="type-signature"></span>renderLightboxContainer</h4>
+    
+    
+    <p class="summary">Renders the lightbox widget container (image, title, description, credits, navigation)</p>
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        This methos is public since has to be called in a chain process, but it's not necessary to call it directly
+    </div>
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>img_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the image options object to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 229</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="renderNavigation"><span class="type-signature">&lt;protected> </span>renderNavigation</h4>
+    
+    
+    <p class="summary">Renders the navigation controllers to surf through images in the lightbox widget</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>img_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the image options object to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 311</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    the lightbox navigation controllers
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="renderOverlay"><span class="type-signature">&lt;protected> </span>renderOverlay</h4>
+    
+    
+    <p class="summary">Renders the overlay and calls the function to execute after</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>chain_callback</code></td>
+            
+            
+            <td class="type">
+            
+                        Function
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the function to call when overlay opacity animation ends</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 165</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setLightbox"><span class="type-signature">&lt;protected> </span>setLightbox</h4>
+    
+    
+    <p class="summary">Sets the thumb click event to render the lightbox navigation</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>thumb</code></td>
+            
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the thumb image element</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>img_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the image options object to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 150</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setTip"><span class="type-signature">&lt;protected> </span>setTip</h4>
+    
+    
+    <p class="summary">Sets a tooltip tied to the thumb and displayed on mouseover</p>
+    
+</dt>
+<dd>
+    
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>thumb</code></td>
+            
+            
+            <td class="type">
+            
+                        Element
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the thumb image element</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>img_opt</code></td>
+            
+            
+            <td class="type">
+            
+                        Object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the image options object to show</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 120</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    void
+</div>
+
+
+
+        
+    
+    
+</dd>
+
+        </dl>
+    
+    
+    
+    
+    
+</article>
+
+</section>  
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="ajs.maps.gmapdraw.circleTool.html">circleTool</a></li><li><a href="ajs.maps.gmapdraw.map.html">map</a></li><li><a href="ajs.ui.moogallery.html">moogallery</a></li><li><a href="ajs.tools.mooreadall.html">mooreadall</a></li><li><a href="ajs.ui.tree.mootree.html">mootree</a></li><li><a href="ajs.maps.gmapdraw.pointTool.html">pointTool</a></li><li><a href="ajs.maps.gmapdraw.polygonTool.html">polygonTool</a></li><li><a href="ajs.maps.gmapdraw.polylineTool.html">polylineTool</a></li><li><a href="ajs.maps.gmapdraw.tool.html">tool</a></li></ul><h3>Namespaces</h3><ul><li><a href="ajs.html">ajs</a></li><li><a href="ajs.maps.gmapdraw.html">ajs.maps.gmapdraw</a></li><li><a href="ajs.maps.html">ajs.maps</a></li><li><a href="ajs.shared.html">ajs.shared</a></li><li><a href="ajs.tools.html">ajs.tools</a></li><li><a href="ajs.ui.tree.html">ajs.ui.tree</a></li><li><a href="ajs.ui.html">ajs.ui</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> on Thu Jun 14 2012 16:01:13 GMT+0200 (CEST)
+</footer>
+
+<script> sh_highlightDocument(); </script>
+</body>
+</html>
