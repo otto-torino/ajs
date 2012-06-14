@@ -176,6 +176,21 @@ ajs.shared.getViewport = function() {
 
 }
 
+/**
+ * @summary Gets the maximum z-index in the document.
+ * @memberof ajs.shared 
+ * @method
+ * @return {Number} The maximum z-index
+ */
+ajs.shared.getMaxZindex = function() {
+	var max_z = 0;
+	$$('body *').each(function(el) {
+		if(el.getStyle('z-index').toInt()) max_z = Math.max(max_z, el.getStyle('z-index').toInt());
+	});
+
+	return max_z;
+}
+
 // define grouping namespaces
 
 /**
