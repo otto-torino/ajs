@@ -84,7 +84,7 @@ ajs.tools.mooreadall = (function()  {
 			this.id = String.uniqueID();
 
 			_private[this.id] = {
-				max_z_index: this.getMaxZindex(),
+				max_z_index: ajs.shared.getMaxZindex(),
 				max_text_size: 22,
 				min_text_size: 8
 			};
@@ -657,21 +657,6 @@ ajs.tools.mooreadall = (function()  {
 			_private[this.id].overlay_anim = new Fx.Tween(_private[this.id].overlay, {property: 'opacity'});
 			_private[this.id].overlay_anim.start(0, 0.7).chain(function() { this.renderLayer(element, html, prop); }.bind(this));
 
-		}.protect(),
-		/**
-		 * @summary Gets the maximum z-index in the document.   
-		 * @memberof ajs.tools.mooreadall.prototype
-		 * @return {Number} The maximum z-index
-		 * @method
-		 * @protected
-		 */
-		getMaxZindex: function() {
-			var maxZ = 0;
-			$$('body *').each(function(el) {
-				if(el.getStyle('z-index').toInt()) maxZ = Math.max(maxZ, el.getStyle('z-index').toInt());
-			});
-
-			return maxZ;
 		}.protect()
 	});
 
