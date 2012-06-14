@@ -1,0 +1,40 @@
+{
+	"name": "ajs",
+	"version": "0.1",
+	"authors": [
+		{
+			"name": "abidibo",
+			"email": "abidibo@gmail.com",
+			"url": "http://www.abidibo.net"
+		}
+	],
+	"revision": "1",
+	"description": "A set of javascript mootools based plugins.",
+	"keywords": [ "ajs", "javascript", "mootools", "otto", "abidibo" ],
+	"copyright": "2012 Otto srl",
+	"licenses": [
+		{
+			"type": "MIT license",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/otto-torino/ajs"
+		}
+	],
+	"bugs": "https://github.com/otto-torino/ajs/issues",
+	"contributors" : [
+		{
+			"name": "abidibo",
+			"email": "abidibo@gmail.com"
+		}
+	],
+	"maintainers": [
+		{
+			"name": "abidibo",
+			"email": "abidibo@gmail.com"
+		} 
+	]
+}

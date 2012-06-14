@@ -20,9 +20,12 @@ ajs.meta = {
  * @summary Namespace extension
  * @memberof ajs
  * @description Extends the parent namespace with the deep object given
- * @param obj The deep object
- * @param [parent=ajs] The namespace to be extended
+ * @param {Object} obj The deep object
+ * @param {Object} [parent=ajs] The namespace to be extended
  * @return {Object} the extended namespace
+ * @example
+ * 	// creates ajs.utilities.widgets and ajs.utilities.ui namespaces
+ * 	ajs.extend({utilities: { widgets: {}, ui: {} }}); 	
  */
 ajs.extend = function(obj, parent) {
 
@@ -49,8 +52,13 @@ ajs.extend = function(obj, parent) {
  * @summary Library loader
  * @memberof ajs
  * @description Loads dinamically the requested ajs module and executes the given callback when loading is complete
- * @param mdls {Mixed} The module name or an array of module's names
- * @param callback The function to execute when all modules are loaded and ready
+ * @param {Mixed} mdls The module name or an array of module's names
+ * @param {Function} callback The function to execute when all modules are loaded and ready
+ * @example 
+ * 	ajs.use([ajs.ui.tree], function() {
+ *		// the library is ready
+ *		var mt = new ajs.ui.tree.mootree('myelement');
+ * 	})
  */
 ajs.use = function(mdls, callback) {
 
@@ -103,8 +111,8 @@ ajs.use = function(mdls, callback) {
  * @memberof ajs
  * @param {String} path The css file path relative to the <b>res/css</b> directory
  * @example
- *     ajs.resource('example.css');
- *     ajs.resource('asubdir/example.css');
+ *     ajs.css('example.css');
+ *     ajs.css('asubdir/example.css');
  */
 ajs.css = function(path) {
 
@@ -116,6 +124,73 @@ ajs.css = function(path) {
 
 }
 
+/* shared */
+
+/**
+ * @summary Set of shared functions
+ * @namespace ajs.shared 
+ * @description <p>Set of functions of general interest</p>
+ */
+ajs.extend({ shared: {} });
+
+/**
+ * @summary Gets the viewport coordinates of the current window (width, height, left offest, top offset, coordinates of the center point).
+ * @memberof ajs.shared 
+ * @method
+ * @return {Object} Viewport coordinates
+ * @example
+ *      // returned object
+ *	{'width':width, 'height':height, 'left':left, 'top':top, 'cX':cX, 'cY':cY}
+ */
+ajs.shared.getViewport = function() {
+	
+	var width, height, left, top, cX, cY;
+
+	// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	if (typeof window.innerWidth != 'undefined') {
+		width = window.innerWidth,
+		      height = window.innerHeight
+	}
+	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth !='undefined' && document.documentElement.clientWidth != 0) {
+		width = document.documentElement.clientWidth,
+		      height = document.documentElement.clientHeight
+	}
+
+	top = typeof self.pageYOffset != 'undefined' 
+		? self.pageYOffset 
+		: (document.documentElement && document.documentElement.scrollTop)
+		? document.documentElement.scrollTop
+		: document.body.clientHeight;
+
+	left = typeof self.pageXOffset != 'undefined' 
+		? self.pageXOffset 
+		: (document.documentElement && document.documentElement.scrollTop)
+		? document.documentElement.scrollLeft
+		: document.body.clientWidth;
+
+	cX = left + width/2;
+	cY = top + height/2;
+
+	return {'width':width, 'height':height, 'left':left, 'top':top, 'cX':cX, 'cY':cY};
+
+}
+
+/**
+ * @summary Gets the maximum z-index in the document.
+ * @memberof ajs.shared 
+ * @method
+ * @return {Number} The maximum z-index
+ */
+ajs.shared.getMaxZindex = function() {
+	var max_z = 0;
+	$$('body *').each(function(el) {
+		if(el.getStyle('z-index').toInt()) max_z = Math.max(max_z, el.getStyle('z-index').toInt());
+	});
+
+	return max_z;
+}
+
 // define grouping namespaces
 
 /**
@@ -125,4 +200,16 @@ ajs.css = function(path) {
  */
 ajs.extend({ maps: {} });
 
+/**
+ * @summary Set of tool modules
+ * @namespace ajs.tools 
+ * @description <p>Set of modules (namespaces) which contains tools to use in different situations.</p>
+ */
+ajs.extend({ tools: {} });
 
+/**
+ * @summary Set of user interface modules
+ * @namespace ajs.ui 
+ * @description <p>Set of modules (namespaces) which contains user interface resources.</p>
+ */
+ajs.extend({ ui: {} });

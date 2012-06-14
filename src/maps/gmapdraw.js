@@ -54,16 +54,16 @@ ajs.maps.gmapdraw.map = (function()  {
 		 * 					   It's a shortcut to easily define set and active tools objects.			
 		 * @param {Object} [options.tools.point=undefined] The point tool init object
 		 * @param {String|Element} [options.tools.point.ctrl=undefined] The id attribute or the element itself which controls the tool, default the built-in menu voice
-		 * @param {Object} [options.tools.point.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.pointTool#specific_options} for available properties
+		 * @param {Object} [options.tools.point.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.pointTool} for available properties
 		 * @param {Object} [options.tools.polyline=undefined] The polyline tool init object
 		 * @param {String|Element} [options.tools.polyline.ctrl=undefined] The id attribute or the element itself which controls the tool, default the built-in menu voice
-		 * @param {Object} [options.tools.polyline.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.polylineTool#specific_options} for available properties
+		 * @param {Object} [options.tools.polyline.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.polylineTool} for available properties
 		 * @param {Object} [options.tools.polygon=undefined] The polygon tool init object
 		 * @param {String|Element} [options.tools.polygon.ctrl=undefined] The id attribute or the element itself which controls the tool, default the built-in menu voice
-		 * @param {Object} [options.tools.polygon.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.polygonTool#specific_options} for available properties
+		 * @param {Object} [options.tools.polygon.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.polygonTool} for available properties
 		 * @param {Object} [options.tools.circle=undefined] The circle tool init object
 		 * @param {String|Element} [options.tools.circle.ctrl=undefined] The id attribute or the element itself which controls the tool, default the built-in menu voice
-		 * @param {Object} [options.tools.circle.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.circleTool#specific_options} for available properties
+		 * @param {Object} [options.tools.circle.options=undefined] The tool options object, see {@link ajs.maps.gmapdraw.circleTool} for available properties
 		 * @param {String|Element} [options.clear_map_ctrl='default'] The clear map controller (clears all drawings over the map). 
 		 *                                                    If 'default' the built-in controller is used, if <code>null</code> the clear map 
 		 *                                                    functionality is removed. If id attribute or an element the clear map functionality is attached to the element.
@@ -485,7 +485,9 @@ ajs.maps.gmapdraw.map = (function()  {
 		 * @return void
  		 */
 		updateTips: function(text) {
-			_private[this.id].tips_map_ctrl.set('html', text);
+			if(_private[this.id].tips_map_ctrl) {
+				_private[this.id].tips_map_ctrl.set('html', text);
+			}
 		},
 		/**
  		 * @summary Returns the init text shown in the tips controller 
