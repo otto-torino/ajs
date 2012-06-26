@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ajs reference: Class: polygonTool</title>
+    <title>ajs reference: Class: tool</title>
     
     <script src="http://shjs.sourceforge.net/sh_main.min.js"> </script>
     <script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: polygonTool</h1>
+    <h1 class="page-title">Class: tool</h1>
     
     
 
@@ -29,10 +29,11 @@
     <h2>
         <span class="ancestors"><a href="ajs.html">ajs</a><a href="ajs.maps.html">.maps</a><a href="ajs.maps.gmapdraw.html">.gmapdraw</a>.</span>
     
-    polygonTool
+    tool
     </h2>
     
-        <div class="class-description"><p>The polygon drawing tool class, which allows to draw polygons over the gmapdraw map instance.</p></div>
+        <div class="class-description"><p>This class is the superclass for all gmapdraw tools, extended by all specific tools.</p>
+           <p><b>DO NOT INSTANTIATE THIS CLASS DIRECLTY</b>, use its children instead.</p></div>
     
 </header>  
 
@@ -43,10 +44,10 @@
     
         
 <dt>
-    <h4 class="name" id="polygonTool"><span class="type-signature"></span>new polygonTool</h4>
+    <h4 class="name" id="tool"><span class="type-signature"></span>new tool</h4>
     
     
-    <p class="summary">Google maps drawing polygon tool class. Provides methods to draw over the <a href="ajs.maps.gmapdraw.map.html">ajs.maps.gmapdraw.map</a> instance</p>
+    <p class="summary">Google maps drawing tool class.</p>
     
 </dt>
 <dd>
@@ -77,6 +78,27 @@
 	</thead>
 	
 	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+            
+            <td class="type">
+            
+                        Number
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The identifier of the child class</td>
+        </tr>
+	
 	
 	
         <tr>
@@ -126,12 +148,12 @@
 	
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>tool_name</code></td>
             
             
             <td class="type">
             
-                        Object
+                        String
                         
                     
             </td>
@@ -140,71 +162,7 @@
             
             
             
-            <td class="description last">A class options object
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		<th>Default</th>
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>max_items_allowed</code></td>
-            
-            
-            <td class="type">
-            
-                        Number
-                        
-                    
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                </td>
-            
-            
-            
-                <td class="default">
-                
-                    3
-                
-                </td>
-            
-            
-            <td class="description last">The maximum number of shapes the tool may draw.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-            </td>
+            <td class="description last">The drawing tool name</td>
         </tr>
 	
 	
@@ -236,7 +194,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1348</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 780</li></ul></dd>
 	
     
     
@@ -259,12 +217,6 @@
     
     </div>
     
-    
-        <h3 class="subsection-title">Extends</h3>
-        
-        <ul>
-            <li><a href="ajs.maps.gmapdraw.tool.html">ajs.maps.gmapdraw.tool</a></li>
-        </ul>
     
     
     
@@ -471,148 +423,6 @@
         
             
 <dt>
-    <h4 class="name" id="clear"><span class="type-signature"></span>clear</h4>
-    
-    
-    <p class="summary">Clears all drawed points</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1461</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    void
-</div>
-
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="clickHandler"><span class="type-signature"></span>clickHandler</h4>
-    
-    
-    <p class="summary">Handles the click event over the map when the tool is the drawing one</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1389</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    void
-</div>
-
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
     <h4 class="name" id="deactivate"><span class="type-signature"></span>deactivate</h4>
     
     
@@ -748,95 +558,6 @@
         
             
 <dt>
-    <h4 class="name" id="exportData"><span class="type-signature"></span>exportData</h4>
-    
-    
-    <p class="summary">Returns all the drawed points data</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1480</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    data An array of arrays of objects representing the polygons' vertex coordinates
-</div>
-
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-		<span class="param-type">Array</span> 
-		
-	</dd>
-</dl>
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sh_javascript"><code>// two polygons, the first with 3 vertexes, the second with 4 vertexes.
-[[{lat: 45, lng:7}, {lat:46, lng:7}, {lat: 42, lng: 11}], [{lat: 42, lng: 11}, {lat: 41, lng: 10.8}, {lat: 44, lng: 8}, {lat: 33, lng: 12}]]</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
     <h4 class="name" id="getToolName"><span class="type-signature"></span>getToolName</h4>
     
     
@@ -920,119 +641,6 @@
         
             
 <dt>
-    <h4 class="name" id="importData"><span class="type-signature"></span>importData</h4>
-    
-    
-    <p class="summary">Imports the data as polygons</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-            
-            <td class="type">
-            
-                        Array
-                        
-                    
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">An array of arrays of objects representing the polygons' vertex coordinates</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1503</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sh_javascript"><code>// two polygons, the first with 3 vertexes, the second with 4 vertexes.
-[[{lat: 45, lng:7}, {lat:46, lng:7}, {lat: 42, lng: 11}], [{lat: 42, lng: 11}, {lat: 41, lng: 10.8}, {lat: 44, lng: 8}, {lat: 33, lng: 12}]]</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
     <h4 class="name" id="options"><span class="type-signature">&lt;protected> </span>options</h4>
     
     
@@ -1107,77 +715,6 @@
 		
 	</dd>
 </dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="prepareTool"><span class="type-signature"></span>prepareTool</h4>
-    
-    
-    <p class="summary">Prepares the tool</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1380</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    void
-</div>
-
-
 
         
     
@@ -1843,160 +1380,6 @@
     
 </dd>
 
-        
-            
-<dt>
-    <h4 class="name" id="tipsText"><span class="type-signature"></span>tipsText</h4>
-    
-    
-    <p class="summary">Returns the tool help tip text</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1372</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    The tips text
-</div>
-
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-		<span class="param-type">String</span> 
-		
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="updateInfo"><span class="type-signature"></span>updateInfo</h4>
-    
-    
-    <p class="summary">Displays information about rawed points in the console</p>
-    
-</dt>
-<dd>
-    
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>gmapdraw.js, line 1441</li></ul></dd>
-	
-    
-    
-	
-	
-	
-	
-</dl>
-
-    
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    void
-</div>
-
-
-
-        
-    
-    
-</dd>
-
         </dl>
     
     
@@ -2019,7 +1402,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> on Tue Jun 26 2012 14:24:41 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> on Tue Jun 26 2012 15:16:15 GMT+0200 (CEST)
 </footer>
 
 <script> sh_highlightDocument(); </script>
