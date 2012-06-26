@@ -186,7 +186,6 @@ ajs.ui.moogallery = new Class({
 	 * @description This methos is public since has to be called in a chain process, but it's not necessary to call it directly
 	 * @memberof ajs.ui.moogallery.prototype
 	 * @method
-	 * @param {Element} thumb the thumb image element
 	 * @param {Object} img_opt the image options object to show
 	 * @return void
 	 */		 
