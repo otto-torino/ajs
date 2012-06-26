@@ -13,7 +13,7 @@ else if( typeof ajs != 'object') {
  * @property {String} version The library version number
  */
 ajs.meta = {
-	version: '0.1'
+	version: 'dev'
 }
 
 /**
