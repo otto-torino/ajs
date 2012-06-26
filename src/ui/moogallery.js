@@ -49,7 +49,7 @@ ajs.ui.moogallery = new Class({
 		
 		this.container = typeOf(container)=='element' ? container : $(container);
 		this.container.setStyle('padding', '0');
-		this.images_opt = images;
+		this.images_opt = images_opt;
 		this.setOptions(options);
 
 		this.images = [];
@@ -150,7 +150,7 @@ ajs.ui.moogallery = new Class({
 	setLightbox: function(thumb, img_opt) {
 
 		thumb.addEvent('click', function() {
-			this.renderOverlay(this.renderLightbox.bind(this, [thumb, img_opt]));
+			this.renderOverlay(this.renderLightbox.bind(this, img_opt));
 		}.bind(this));
 
 	}.protect(),
@@ -183,14 +183,14 @@ ajs.ui.moogallery = new Class({
 	},
 	/**
 	 * @summary Renders the lightbox widget
-	 * @description This methos is public since has to be calle in a chain process, but it's not necessary to call it directly
+	 * @description This methos is public since has to be called in a chain process, but it's not necessary to call it directly
 	 * @memberof ajs.ui.moogallery.prototype
 	 * @method
 	 * @param {Element} thumb the thumb image element
 	 * @param {Object} img_opt the image options object to show
 	 * @return void
 	 */		 
-	renderLightbox: function(thumb, img_opt) {
+	renderLightbox: function(img_opt) {
 
 		this.lightbox_container = new Element('div.moogallery_lightbox_container').setStyles({
 			'visibility': 'hidden',

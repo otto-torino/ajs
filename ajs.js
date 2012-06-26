@@ -55,7 +55,7 @@ ajs.extend = function(obj, parent) {
  * @param {Mixed} mdls The module name or an array of module's names
  * @param {Function} callback The function to execute when all modules are loaded and ready
  * @example 
- * 	ajs.use([ajs.ui.tree], function() {
+ * 	ajs.use(['ajs.ui.tree'], function() {
  *		// the library is ready
  *		var mt = new ajs.ui.tree.mootree('myelement');
  * 	})
