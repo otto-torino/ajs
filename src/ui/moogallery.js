@@ -232,7 +232,7 @@ ajs.ui.moogallery = new Class({
 		var img = this.images[this.index];
 
 		var img_info = new Element('div.moogallery_lightbox_info');
-		var img_info_title = new Element('p.moogallery_lightbox_info_title').set('text', img_opt.title);
+		var img_info_title = new Element('p.moogallery_lightbox_info_title').set('html', img_opt.title);
 
 		var img_info_description_text = typeOf(img_opt.description) === 'null' ? '' : img_opt.description;
 		var img_info_description = new Element('div.moogallery_lightbox_info_description').set('html', img_info_description_text);
