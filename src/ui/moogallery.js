@@ -237,7 +237,7 @@ ajs.ui.moogallery = new Class({
 		var img_info_description_text = typeOf(img_opt.description) === 'null' ? '' : img_opt.description;
 		var img_info_description = new Element('div.moogallery_lightbox_info_description').set('html', img_info_description_text);
 
-		var img_info_credits_text = typeOf(img_opt.credits) === 'null' ? '' : 'credits: ' + img_opt.credits;
+		var img_info_credits_text = typeOf(img_opt.credits) === 'null' ? '' : img_opt.credits;
 		var img_info_credits = new Element('p.moogallery_lightbox_info_credits').set('html', img_info_credits_text);
 
 		img_info.adopt(img_info_title, img_info_description, img_info_credits);
