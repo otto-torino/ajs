@@ -94,12 +94,11 @@ ajs.ui.moogallery = new Class({
 		this.images.push(img);
 		this.thumbs.push(thumb);
 
-		img.onload = function() {
+		thumb.onload = function() {
 			var td = new Element('td');
 			td.inject(this.tr);
 			thumb.inject(td);
 			if(this.table.getCoordinates().width >= this.container_width) {
-				console.log(this.container_width);
 				td.dispose();
 				this.tr = new Element('tr').inject(this.table);
 				td.inject(this.tr);
