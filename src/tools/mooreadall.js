@@ -396,10 +396,10 @@ ajs.tools.mooreadall = (function()  {
 				action_link.setProperty('target', prop.link_target);	
 			}
 			else if(prop.action === 'callback') {
-				action_link.addEvent('click', prop.callback.bind(this, [element, prop.callback_param]));	
+				action_link.addEvent('click', prop.callback.bind(this, element, prop.callback_param));	
 			}
 			else if(prop.action === 'layer') {
-				action_link.addEvent('click', this.showInLayer.bind(this, [element, html, prop]));	
+				action_link.addEvent('click', this.showInLayer.bind(this, element, html, prop));	
 			}
 	
 			return action_link;
@@ -536,7 +536,7 @@ ajs.tools.mooreadall = (function()  {
 
 			var ylimit = $$('body')[0].getSize().y-20;
 			var xlimit = $$('body')[0].getSize().x-20;
-			this.layer.makeResizable({
+			_private[this.id].layer.makeResizable({
 				'handle': ico_resize, 
 				'limit': {'x':[200, xlimit], 'y':[60, ylimit]}
 			});
