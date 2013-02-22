@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: src/ui/moogallery.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: src/ui/moogallery.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>// load the css stylesheet
+ajs.css('moogallery.css');
+
+// look at initialize method for class description
+ajs.ui.moogallery = new Class({
+
+	Implements: [Options, Events],
+	options: {
+		show_bullets: true,
+		onComplete: function() {}
+	},
+	/**
+	 * @summary Images gallery user interface.
+	 * @classdesc &lt;p>The class creates an interactive gallery of images, videos and audios.&lt;/p>
+	 *            &lt;p>Given the thumbs' paths and some information the thumbs are loaded sequentially and inserted in a table structure automatically sized according to the size of the container,
+	 *            then events are added in order to manage tips, lightbox widget (and navigation through media) and show media's meta information.&lt;/p>
+   *            &lt;p>Videos can be hosted on youtube or vimeo, audio files are inserted following html5 specifications. If used with cpoyer's mootools-mobile (https://github.com/cpojer/mootools-mobile) supports swipe gestures on mobile (android, ios) to change media in the lightbox view (activate the support_mobile option).&lt;/p>
+	 * @constructs ajs.ui.moogallery
+	 * @param {String|Element} container the gallery container element or its id attribute
+	 * @param {Array} items_opt the array of objects containing the images properties. Each object has the following properties:
+	 *                           &lt;ul> 
+	 *                             &lt;li>thumb: path to the thumb image&lt;/li> 
+	 *                             &lt;li>img: path to the image&lt;/li> 
+	 *                             &lt;li>youtube: code of the youtube video&lt;/li> 
+	 *                             &lt;li>vimeo: code of the vimeo video&lt;/li> 
+	 *                             &lt;li>video_width: video width&lt;/li> 
+	 *                             &lt;li>video_height: video height&lt;/li> 
+	 *                             &lt;li>mpeg: path to mpeg file&lt;/li> 
+	 *                             &lt;li>ogg: path to ogg file&lt;/li> 
+	 *                             &lt;li>title: media title&lt;/li> 
+	 *                             &lt;li>description: media description&lt;/li> 
+	 *                             &lt;li>credits: media credits&lt;/li> 
+	 *                           &lt;/ul> 
+	 * @param {Object} options The class options object
+	 * @param {Function} [options.onComplete=function(){}] A callback to be called when the rendering of the thumb ended
+	 * @param {Boolean} [options.show_bullets=true] Whether or not to show bullets in lightbox widget
+	 * @example
+	 * 	var mt = new ajs.ui.moogallery('mycontainer', [
+	 *          {
+	 *              thumb: 'http://my/thumb/path', 
+	 *              img: 'http://my/img/path', 
+	 *              title: 'image title', 
+	 *              description: 'image description'
+	 *              credits: 'image credits'
+	 *          },
+	 *          {
+	 *              thumb: 'http://my/thumb/path2', 
+	 *              img: 'http://my/img/path2', 
+	 *              title: 'image title2', 
+	 *              description: 'image description2'
+	 *              credits: 'image credits2'
+	 *          }
+	 *     ]);
+	 */
+	initialize: function(container, items_opt, options) {
+		
+		this.container = typeOf(container)=='element' ? container : $(container);
+		this.container.setStyle('padding', '0');
+		this.items_opt = items_opt;
+		this.setOptions(options);
+
+		this.mobile = this.options.support_mobile && ( Browser.Platform.ios || Browser.Platform.android) ? true : false;
+
+		this.video_base_link = {
+			youtube: 'http://www.youtube.com/embed/',
+			vimeo: 'http://player.vimeo.com/video/'
+		}
+
+		this.items = [];
+		this.thumbs = [];
+
+		this.max_z_index = ajs.shared.getMaxZindex();
+
+		this.table = new Element('table', {'class': 'moogallery'}).inject(this.container);
+		this.tr = new Element('tr').inject(this.table);
+		this.tr_width = 0;
+		this.container_width = this.container.getCoordinates().width;
+
+		this.addEvent('item_rendered', function(item_opt_index) {
+			if(typeOf(this.items_opt[item_opt_index]) != 'null') {
+				this.renderItem(this.items_opt[item_opt_index]);
+			}
+			else {
+				this.fireEvent('complete');
+			}
+		});
+
+		this.renderItem(this.items_opt[0]);
+	},
+	/**
+	 * @summary Inserts an image in the table creating a new cell and changing row if necessary
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Object} item_opt the image options object to show
+	 * @protected
+	 * @return void
+	 */		 
+	renderItem: function(item_opt) {
+
+		var thumb = new Element('img');
+
+		thumb.onload = function() {
+			var td = new Element('td');
+			td.inject(this.tr);
+			thumb.inject(td);
+			if(this.table.getCoordinates().width >= this.container_width) {
+				td.dispose();
+				this.tr = new Element('tr').inject(this.table);
+				td.inject(this.tr);
+			}
+			this.fireEvent('item_rendered', this.items_opt.indexOf(item_opt)+1)
+		}.bind(this);
+
+		thumb.src = item_opt.thumb;
+
+		this.setTip(thumb, item_opt);
+		this.setLightbox(thumb, item_opt);
+
+		this.thumbs.push(thumb);
+
+		if(typeOf(item_opt.img) != 'null') {
+			var item = new Element('img');
+			item.src = item_opt.img;
+		}
+		else if(typeOf(item_opt.youtube) != 'null' || typeOf(item_opt.vimeo) != 'null') {
+			var site = typeOf(item_opt.youtube) != 'null' ? 'youtube' : 'vimeo';
+			var item = new Element('iframe');
+			item.src = this.video_base_link[site] + item_opt[site];
+			item.setProperty('frameborder', '0');
+			item.setProperty('allowfullscreen', '');
+			item.setProperty('width', item_opt.video_width);
+			item.setProperty('height', item_opt.video_height);
+		}
+		else if(typeOf(item_opt.mpeg) != 'null' || typeOf(item_opt.ogg) != null) {
+			var item = new Element('audio', {text: "Your browser does not support the audio element"}).addEvent('click', function(e) { e.stopPropagation(); });
+			item.setProperty('controls', 'controls');
+			['mpeg', 'ogg'].each(function(type) {
+				if(typeOf(item_opt[type]) != 'null') {
+					var src = new Element('source', {src: item_opt[type], type: 'audio/' + type});
+					src.inject(item, 'top');
+				}
+			})
+		}
+
+		this.items.push(item);
+		
+	}.protect(),
+	/**
+	 * @summary Sets a tooltip tied to the thumb and displayed on mouseover
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Element} thumb the thumb image element
+	 * @param {Object} item_opt the image options object to show
+	 * @protected
+	 * @return void
+	 */		 
+	setTip: function(thumb, item_opt) {
+
+		var tip_container = new Element('div', {'class': 'moogallery_tip'});
+		tip_container.set('html', '&lt;b>' + item_opt.title + '&lt;/b>');
+		thumb.addEvents({
+			'mousemove': function(e) {
+				tip_container.setStyles({
+					position: 'absolute',
+					top: (e.page.y + 10) + 'px',
+					left: (e.page.x + 10) + 'px',
+					'z-index': this.max_z_index++
+				});
+				tip_container.inject(document.body);
+	
+			}.bind(this),
+			'mouseout': function(e) {
+				tip_container.dispose();
+			}
+		});
+
+	}.protect(),
+	/**
+	 * @summary Sets the thumb click event to render the lightbox navigation
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Element} thumb the thumb image element
+	 * @param {Object} item_opt the image options object to show
+	 * @protected
+	 * @return void
+	 */		 
+	setLightbox: function(thumb, item_opt) {
+
+		thumb.addEvent('click', function() {
+			this.renderOverlay(this.renderLightbox.bind(this, item_opt));
+		}.bind(this));
+
+	}.protect(),
+	/**
+	 * @summary Renders the overlay and calls the function to execute after
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Function} chain_callback the function to call when overlay opacity animation ends
+	 * @protected
+	 * @return void
+	 */		 
+	renderOverlay: function(chain_callback) {
+
+		var docDim = document.getScrollSize();
+
+		this.overlay = new Element('div', {'class': 'moogallery_overlay'});
+		this.overlay.setStyles({
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			'z-index': this.max_z_index++,
+			width: docDim.x,
+			height: docDim.y,
+			opacity: 0
+		});
+		this.overlay.inject(document.body);
+
+		var myfx = new Fx.Tween(this.overlay, {'property': 'opacity'});
+		myfx.start(0, 0.9).chain(chain_callback);
+	},
+	/**
+	 * @summary Renders the lightbox widget
+	 * @description This methos is public since has to be called in a chain process, but it's not necessary to call it directly
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Object} item_opt the image options object to show
+	 * @return void
+	 */		 
+	renderLightbox: function(item_opt) {
+
+		this.lightbox_container = new Element('div.moogallery_lightbox_container').setStyles({
+			'visibility': 'hidden',
+			'position': 'absolute',
+			'overflow': 'hidden',
+			'margin': '0' // no margin please!!
+		});
+
+		this.lightbox_container.inject(document.body);
+
+		// click event
+		this.lightbox_container.addEvent('click', function(e) {
+			if(e.target.get('tag') == 'a') return true;
+			var cont_dim = this.lightbox_container.getCoordinates();
+			if(e.page.x &lt; cont_dim.left + cont_dim.width/2) {
+				if(this.index==0) return false;
+				this.changeItem(this.index - 1);
+			}
+			else {
+				if(this.index==this.items.length-1) return false;
+				this.changeItem(this.index + 1);
+			}
+		}.bind(this));	
+
+		// mouseover shows next prev arrows
+		this.lightbox_container.addEvent('mouseover', function(e) {
+			var cont_dim = this.lightbox_container.getCoordinates();
+			if(e.page.x &lt; cont_dim.left + cont_dim.width/2) {
+				if(this.arrow_next.getStyle('opacity') != '0') {
+					this.arrow_next.fade('hide');
+				}
+				if(this.index==0) return false;
+				this.arrow_prev.fade('in');
+			}
+			else {
+				if(this.arrow_prev.getStyle('opacity') != '0') {
+					this.arrow_prev.fade('hide');
+				}
+				if(this.index==this.items.length-1) return false;
+				this.arrow_next.fade('in');
+			}
+		}.bind(this));
+
+		this.lightbox_container.addEvent('mouseleave', function(e) {
+			this.arrow_next.fade('hide');
+			this.arrow_prev.fade('hide');
+		}.bind(this));
+
+		this.index = this.items_opt.indexOf(item_opt);
+		this.renderLightboxContainer();
+
+		// swipe event
+		if(this.mobile && Browser.Features.Touch) {
+			document.body.addEvent('swipe', function(e) {
+				Element.disableCustomEvents();
+				(function(){
+					Element.enableCustomEvents();
+				}).delay(1000);
+				if(e.direction == 'left') {
+					if(this.index==this.items.length-1) return false;
+					this.changeItem(this.index + 1);
+				}
+				else {
+					if(this.index==0) return false;
+					this.changeItem(this.index - 1);
+				}
+			}.bind(this));
+		}
+
+	},
+	/**
+	 * @summary Renders the lightbox widget container (image, title, description, credits, navigation)
+	 * @description This methos is public since has to be called in a chain process, but it's not necessary to call it directly
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Object} item_opt the image options object to show
+	 * @return void
+	 */		 
+	renderLightboxContainer: function() {
+
+		// image to show
+		item_opt = this.items_opt[this.index];
+		var item = this.items[this.index];
+
+		var item_info = new Element('div.moogallery_lightbox_info');
+		var item_info_title = new Element('p.moogallery_lightbox_info_title').set('html', item_opt.title);
+
+		var item_info_description_text = typeOf(item_opt.description) === 'null' ? '' : item_opt.description;
+		var item_info_description = new Element('div.moogallery_lightbox_info_description').set('html', item_info_description_text);
+
+		var item_info_credits_text = typeOf(item_opt.credits) === 'null' ? '' : item_opt.credits;
+		var item_info_credits = new Element('p.moogallery_lightbox_info_credits').set('html', item_info_credits_text);
+
+		item_info.adopt(item_info_title, item_info_description, item_info_credits);
+
+		var navigation = this.renderNavigation(item_opt);
+
+		// contents hidden with opacity
+		var lightbox_subcontainer = new Element('div').setStyle('opacity', '0').inject(this.lightbox_container);
+
+		lightbox_subcontainer.adopt(item, navigation, item_info);
+
+		// dimensions
+		// padding and borders increase the width of the element
+		var plus_dim = this.lightbox_container.getStyle('padding').toInt()*2 + this.lightbox_container.getStyle('border-width').toInt() * 2;
+		var final_width = item.getCoordinates().width;
+		
+		// first image opened
+		if(this.lightbox_container.getStyle('visibility') == 'hidden') {
+			var init_dim = 20;
+			var init_real_dim = 20 + plus_dim;
+			var vp = ajs.shared.getViewport();
+			this.lightbox_container.setStyles({
+				'width': init_dim + 'px',
+				'height': init_dim + 'px',
+				'top': (vp.cY - init_real_dim/2) + 'px',
+				'left': (vp.cX - init_real_dim/2) + 'px',
+				'visibility': 'visible',
+				'z-index': this.max_z_index++
+			});
+		}
+
+		var current_width = this.lightbox_container.getCoordinates().width;
+		var current_height = this.lightbox_container.getCoordinates().height;
+		var lc_animation = new Fx.Morph(this.lightbox_container, {duration: 'short'});
+		lc_animation.start({
+			'width': final_width, 
+			'left': this.lightbox_container.getStyle('left').toInt() - (final_width + plus_dim - current_width)/2 
+		}).chain(function() {
+			lightbox_subcontainer.adopt(navigation, item_info);
+			var final_height = lightbox_subcontainer.getCoordinates().height;
+			lc_animation.start({
+				'height': final_height,
+				'top': this.lightbox_container.getStyle('top').toInt() - (final_height + plus_dim - current_height)/2, 
+			}).chain(function() {
+				lightbox_subcontainer.fade('in');	
+			});
+		}.bind(this));	
+
+		// click outside to close
+		this.overlay.addEvent('click', function(e) {
+			var event = new DOMEvent(e);
+			if(event.target != this.container) {
+				this.lightbox_container.dispose();
+				var myfx = new Fx.Tween(this.overlay, {'property': 'opacity'});
+				myfx.start(0.9, 0).chain(function() {
+					this.overlay.dispose();
+				}.bind(this));
+				if(this.mobile && Browser.Features.Touch) {
+					document.body.removeEvent('swipe');
+				}
+			}
+		}.bind(this));
+
+	},
+	/**
+	 * @summary Renders the navigation controllers to surf through images in the lightbox widget
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Object} item_opt the image options object to show 
+	 * @protected
+	 * @return the lightbox navigation controllers
+	 */		 
+	renderNavigation: function(item_opt) {
+
+		var index = this.items_opt.indexOf(item_opt);
+		var nav = new Element('div.moogallery_nav');
+
+		this.arrow_next = new Element('div', {'class': 'arrow arrow_next'}).setStyle('opacity', '0');
+		this.arrow_prev = new Element('div', {'class': 'arrow arrow_prev'}).setStyle('opacity', '0');
+		var arrows = new Element('div.nav_arrows').adopt(this.arrow_next, this.arrow_prev);
+
+		var nav_info_text = (index + 1) + '/' + this.items_opt.length;
+		var nav_info = new Element('div.moogallery_nav_info').set('text', nav_info_text);
+
+		nav.grab(arrows);
+
+		// bullets
+		if(this.options.show_bullets) {
+			var nav_table = new Element('table.moogallery_nav_table');
+			var tr = new Element('tr').inject(nav_table);
+			this.items.each(function(item, i) {
+				var td = new Element('td').inject(tr);
+				var bullet = new Element('div.moogallery_nav_bullet').inject(td);
+				if(i == index) bullet.addClass('bullet_selected');
+				else {
+					bullet.addEvent('click', function(e) {
+						e.stopPropagation();
+						this.changeItem(i);
+					}.bind(this))
+				}
+			}.bind(this));
+
+			nav_table.inject(nav);	
+		}
+
+		nav.grab(nav_info);
+
+		return nav;
+
+	}.protect(),
+	/**
+	 * @summary Changes the image displayed in the lightbox widget
+	 * @memberof ajs.ui.moogallery.prototype
+	 * @method
+	 * @param {Number} index the index of the image to show
+	 * @return void
+	 */		 
+	changeItem: function(index) {
+		this.index = index;
+		var myfx = new Fx.Tween(this.lightbox_container.getChildren('div')[0], {property: 'opacity', duration: 'short'});
+		myfx.start(1, 0).chain(function() {
+			this.lightbox_container.empty();
+			this.renderLightboxContainer();	
+		}.bind(this));
+	}
+
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="ajs.maps.gmapdraw.circleTool.html">circleTool</a></li><li><a href="ajs.maps.gmapdraw.map.html">map</a></li><li><a href="ajs.maps.gmapdraw.pointTool.html">pointTool</a></li><li><a href="ajs.maps.gmapdraw.polygonTool.html">polygonTool</a></li><li><a href="ajs.maps.gmapdraw.polylineTool.html">polylineTool</a></li><li><a href="ajs.maps.gmapdraw.tool.html">tool</a></li><li><a href="ajs.tools.mooreadall.html">mooreadall</a></li><li><a href="ajs.ui.moogallery.html">moogallery</a></li><li><a href="ajs.ui.tree.mootree.html">mootree</a></li></ul><h3>Namespaces</h3><ul><li><a href="ajs.html">ajs</a></li><li><a href="ajs.maps.html">ajs.maps</a></li><li><a href="ajs.maps.gmapdraw.html">ajs.maps.gmapdraw</a></li><li><a href="ajs.shared.html">ajs.shared</a></li><li><a href="ajs.tools.html">ajs.tools</a></li><li><a href="ajs.ui.html">ajs.ui</a></li><li><a href="ajs.ui.tree.html">ajs.ui.tree</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Feb 22 2013 16:30:01 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+</body>
+</html>

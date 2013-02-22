@@ -1,8 +1,15 @@
+html
+{
+    overflow: auto;
+    background-color: #fff;
+}
+
 body
 {
 	font: 12px "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans serif;
 	line-height: 160%;
 	color: #333;
+	background-color: #fff;
 }
 
 a {
@@ -24,9 +31,8 @@ header
 }
 
 .class-description {
-	/*line-height: 140%;*/
-	color: #666;
-	
+	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 #main {
@@ -73,6 +79,11 @@ nav ul {
     padding:0;
     margin:0;
     list-style-type:none;
+}
+
+nav h2 a, nav h2 a:visited {
+    color: #A35A00;
+    text-decoration: none;
 }
 
 nav h3 {
@@ -133,7 +144,7 @@ h4
 {
 	font-size: 130%;
 	line-height: 130%;
-	border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 	font-weight: bold;
 	letter-spacing: -0.01em;
 	margin-top: 16px;
@@ -189,7 +200,11 @@ h6
 .details ul { list-style-type: none; }
 .details li { margin-left: 30px; padding-top: 6px; }
 
-.description { margin-left: 0px; }
+.description {
+	margin-bottom: 1em;
+	margin-left: -16px;
+	margin-top: 1em;
+}
 
 .code-caption
 {
@@ -199,13 +214,18 @@ h6
 	margin: 0;
 }
 
-.sh_sourceCode
+.prettyprint
 {
-	border: 1px solid #ccc;
+	border: 1px solid #ddd;
 	width: 80%;
+    overflow: auto;
 }
 
-.sh_sourceCode code
+.prettyprint.source {
+    width: inherit;
+}
+
+.prettyprint code
 {
 	font-family: Consolas, 'Lucida Console', Monaco, monospace;
 	font-size: 100%;
@@ -213,9 +233,9 @@ h6
 	display: block;
 	padding: 4px 12px;
 	margin: 0;
-	background-color: #eee;
+	background-color: #f1f1f1;
 	color: #000;
-	border-left: 3px #ccc solid;
+	border-left: 3px #eee solid;
 }
 
 .params, .props
@@ -223,7 +243,7 @@ h6
 	border-spacing: 0;
 	border: 0;
 	border-collapse: collapse;
-	width: 98%;
+  width: 98%;
 }
 
 .params .name, .props .name, .name code {
@@ -245,7 +265,7 @@ h6
 .params thead tr, .props thead tr
 {
 	background-color: #6199df;
-	color: #fff;
+  color: #fff;
 	font-weight: bold;
 }
 

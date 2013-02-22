@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ajs reference: Class: moogallery</title>
+    <title>JSDoc: Class: moogallery</title>
     
-    <script src="http://shjs.sourceforge.net/sh_main.min.js"> </script>
-    <script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"> </script>
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/node-dark.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
 
@@ -32,9 +32,10 @@
     moogallery
     </h2>
     
-        <div class="class-description"><p>The class creates an interactive gallery of images.</p>
-           <p>The thumb images are loaded sequentially and inserted in a table structure automatically sized according to the size of the container,
-           then events are added in order to manage tips, lightbox widget (and navigation through images) and show images' meta information.</p></div>
+        <div class="class-description"><p>The class creates an interactive gallery of images, videos and audios.</p>
+           <p>Given the thumbs' paths and some information the thumbs are loaded sequentially and inserted in a table structure automatically sized according to the size of the container,
+           then events are added in order to manage tips, lightbox widget (and navigation through media) and show media's meta information.</p>
+           <p>Videos can be hosted on youtube or vimeo, audio files are inserted following html5 specifications. If used with cpoyer's mootools-mobile (https://github.com/cpojer/mootools-mobile) supports swipe gestures on mobile (android, ios) to change media in the lightbox view (activate the support_mobile option).</p></div>
     
 </header>  
 
@@ -45,7 +46,7 @@
     
         
 <dt>
-    <h4 class="name" id="moogallery"><span class="type-signature"></span>new moogallery</h4>
+    <h4 class="name" id="moogallery"><span class="type-signature"></span>new moogallery<span class="signature">(container, items_opt, options)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Images gallery user interface.</p>
@@ -53,6 +54,8 @@
 </dt>
 <dd>
     
+    
+
     
     
     
@@ -88,12 +91,14 @@
             
             <td class="type">
             
-                        String
-                         | 
-                    
-                        Element
-                        
-                    
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Element</span>
+
+
+            
             </td>
             
             
@@ -107,14 +112,16 @@
 	
         <tr>
             
-                <td class="name"><code>images_opt</code></td>
+                <td class="name"><code>items_opt</code></td>
             
             
             <td class="type">
             
-                        Array
-                        
-                    
+                
+<span class="param-type">Array</span>
+
+
+            
             </td>
             
             
@@ -125,9 +132,15 @@
                           <ul> 
                             <li>thumb: path to the thumb image</li> 
                             <li>img: path to the image</li> 
-                            <li>title: image title</li> 
-                            <li>description: image description</li> 
-                            <li>credits: image credits</li> 
+                            <li>youtube: code of the youtube video</li> 
+                            <li>vimeo: code of the vimeo video</li> 
+                            <li>video_width: video width</li> 
+                            <li>video_height: video height</li> 
+                            <li>mpeg: path to mpeg file</li> 
+                            <li>ogg: path to ogg file</li> 
+                            <li>title: media title</li> 
+                            <li>description: media description</li> 
+                            <li>credits: media credits</li> 
                           </ul></td>
         </tr>
 	
@@ -140,9 +153,11 @@
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -184,9 +199,11 @@
             
             <td class="type">
             
-                        Function
-                        
-                    
+                
+<span class="param-type">Function</span>
+
+
+            
             </td>
             
             
@@ -219,9 +236,11 @@
             
             <td class="type">
             
-                        Boolean
-                        
-                    
+                
+<span class="param-type">Boolean</span>
+
+
+            
             </td>
             
             
@@ -260,34 +279,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 48</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 55
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -300,7 +319,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sh_javascript"><code>	var mt = new ajs.ui.moogallery('mycontainer', [
+    <pre class="prettyprint"><code>	var mt = new ajs.ui.moogallery('mycontainer', [
          {
              thumb: 'http://my/thumb/path', 
              img: 'http://my/img/path', 
@@ -341,7 +360,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="changeImage"><span class="type-signature"></span>changeImage</h4>
+    <h4 class="name" id="changeItem"><span class="type-signature"></span>changeItem<span class="signature">(index)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Changes the image displayed in the lightbox widget</p>
@@ -349,6 +368,8 @@
 </dt>
 <dd>
     
+    
+
     
     
     
@@ -384,9 +405,11 @@
             
             <td class="type">
             
-                        Number
-                        
-                    
+                
+<span class="param-type">Number</span>
+
+
+            
             </td>
             
             
@@ -405,34 +428,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 349</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 438
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -458,7 +481,7 @@
         
             
 <dt>
-    <h4 class="name" id="renderImage"><span class="type-signature">&lt;protected> </span>renderImage</h4>
+    <h4 class="name" id="renderItem"><span class="type-signature">&lt;protected> </span>renderItem<span class="signature">(item_opt)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Inserts an image in the table creating a new cell and changing row if necessary</p>
@@ -466,6 +489,8 @@
 </dt>
 <dd>
     
+    
+
     
     
     
@@ -496,14 +521,16 @@
 	
         <tr>
             
-                <td class="name"><code>img_opt</code></td>
+                <td class="name"><code>item_opt</code></td>
             
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -522,34 +549,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 84</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 98
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -575,7 +602,7 @@
         
             
 <dt>
-    <h4 class="name" id="renderLightbox"><span class="type-signature"></span>renderLightbox</h4>
+    <h4 class="name" id="renderLightbox"><span class="type-signature"></span>renderLightbox<span class="signature">(item_opt)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Renders the lightbox widget</p>
@@ -588,6 +615,8 @@
         This methos is public since has to be called in a chain process, but it's not necessary to call it directly
     </div>
     
+
+    
     
     
     
@@ -617,14 +646,16 @@
 	
         <tr>
             
-                <td class="name"><code>img_opt</code></td>
+                <td class="name"><code>item_opt</code></td>
             
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -643,34 +674,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 192</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 229
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -696,7 +727,7 @@
         
             
 <dt>
-    <h4 class="name" id="renderLightboxContainer"><span class="type-signature"></span>renderLightboxContainer</h4>
+    <h4 class="name" id="renderLightboxContainer"><span class="type-signature"></span>renderLightboxContainer<span class="signature">(item_opt)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Renders the lightbox widget container (image, title, description, credits, navigation)</p>
@@ -709,6 +740,8 @@
         This methos is public since has to be called in a chain process, but it's not necessary to call it directly
     </div>
     
+
+    
     
     
     
@@ -738,14 +771,16 @@
 	
         <tr>
             
-                <td class="name"><code>img_opt</code></td>
+                <td class="name"><code>item_opt</code></td>
             
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -764,34 +799,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 228</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 308
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -817,7 +852,7 @@
         
             
 <dt>
-    <h4 class="name" id="renderNavigation"><span class="type-signature">&lt;protected> </span>renderNavigation</h4>
+    <h4 class="name" id="renderNavigation"><span class="type-signature">&lt;protected> </span>renderNavigation<span class="signature">(item_opt)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Renders the navigation controllers to surf through images in the lightbox widget</p>
@@ -825,6 +860,8 @@
 </dt>
 <dd>
     
+    
+
     
     
     
@@ -855,14 +892,16 @@
 	
         <tr>
             
-                <td class="name"><code>img_opt</code></td>
+                <td class="name"><code>item_opt</code></td>
             
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -881,34 +920,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 310</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 393
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -934,7 +973,7 @@
         
             
 <dt>
-    <h4 class="name" id="renderOverlay"><span class="type-signature">&lt;protected> </span>renderOverlay</h4>
+    <h4 class="name" id="renderOverlay"><span class="type-signature">&lt;protected> </span>renderOverlay<span class="signature">(chain_callback)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Renders the overlay and calls the function to execute after</p>
@@ -942,6 +981,8 @@
 </dt>
 <dd>
     
+    
+
     
     
     
@@ -977,9 +1018,11 @@
             
             <td class="type">
             
-                        Function
-                        
-                    
+                
+<span class="param-type">Function</span>
+
+
+            
             </td>
             
             
@@ -998,34 +1041,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 165</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 202
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -1051,7 +1094,7 @@
         
             
 <dt>
-    <h4 class="name" id="setLightbox"><span class="type-signature">&lt;protected> </span>setLightbox</h4>
+    <h4 class="name" id="setLightbox"><span class="type-signature">&lt;protected> </span>setLightbox<span class="signature">(thumb, item_opt)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Sets the thumb click event to render the lightbox navigation</p>
@@ -1060,6 +1103,8 @@
 <dd>
     
     
+
+    
     
     
     
@@ -1094,9 +1139,11 @@
             
             <td class="type">
             
-                        Element
-                        
-                    
+                
+<span class="param-type">Element</span>
+
+
+            
             </td>
             
             
@@ -1110,14 +1157,16 @@
 	
         <tr>
             
-                <td class="name"><code>img_opt</code></td>
+                <td class="name"><code>item_opt</code></td>
             
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -1136,34 +1185,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 150</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 187
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -1189,7 +1238,7 @@
         
             
 <dt>
-    <h4 class="name" id="setTip"><span class="type-signature">&lt;protected> </span>setTip</h4>
+    <h4 class="name" id="setTip"><span class="type-signature">&lt;protected> </span>setTip<span class="signature">(thumb, item_opt)</span><span class="type-signature"></span></h4>
     
     
     <p class="summary">Sets a tooltip tied to the thumb and displayed on mouseover</p>
@@ -1197,6 +1246,8 @@
 </dt>
 <dd>
     
+    
+
     
     
     
@@ -1232,9 +1283,11 @@
             
             <td class="type">
             
-                        Element
-                        
-                    
+                
+<span class="param-type">Element</span>
+
+
+            
             </td>
             
             
@@ -1248,14 +1301,16 @@
 	
         <tr>
             
-                <td class="name"><code>img_opt</code></td>
+                <td class="name"><code>item_opt</code></td>
             
             
             <td class="type">
             
-                        Object
-                        
-                    
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -1274,34 +1329,34 @@
 <dl class="details">
     
         
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>moogallery.js, line 120</li></ul></dd>
-	
     
     
-	
-	
-	
-	
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="moogallery.js.html">src/ui/moogallery.js</a>, line 157
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
 </dl>
 
     
@@ -1340,15 +1395,15 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="ajs.maps.gmapdraw.circleTool.html">circleTool</a></li><li><a href="ajs.maps.gmapdraw.map.html">map</a></li><li><a href="ajs.ui.moogallery.html">moogallery</a></li><li><a href="ajs.tools.mooreadall.html">mooreadall</a></li><li><a href="ajs.ui.tree.mootree.html">mootree</a></li><li><a href="ajs.maps.gmapdraw.pointTool.html">pointTool</a></li><li><a href="ajs.maps.gmapdraw.polygonTool.html">polygonTool</a></li><li><a href="ajs.maps.gmapdraw.polylineTool.html">polylineTool</a></li><li><a href="ajs.maps.gmapdraw.tool.html">tool</a></li></ul><h3>Namespaces</h3><ul><li><a href="ajs.html">ajs</a></li><li><a href="ajs.maps.gmapdraw.html">ajs.maps.gmapdraw</a></li><li><a href="ajs.maps.html">ajs.maps</a></li><li><a href="ajs.shared.html">ajs.shared</a></li><li><a href="ajs.tools.html">ajs.tools</a></li><li><a href="ajs.ui.tree.html">ajs.ui.tree</a></li><li><a href="ajs.ui.html">ajs.ui</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="ajs.maps.gmapdraw.circleTool.html">circleTool</a></li><li><a href="ajs.maps.gmapdraw.map.html">map</a></li><li><a href="ajs.maps.gmapdraw.pointTool.html">pointTool</a></li><li><a href="ajs.maps.gmapdraw.polygonTool.html">polygonTool</a></li><li><a href="ajs.maps.gmapdraw.polylineTool.html">polylineTool</a></li><li><a href="ajs.maps.gmapdraw.tool.html">tool</a></li><li><a href="ajs.tools.mooreadall.html">mooreadall</a></li><li><a href="ajs.ui.moogallery.html">moogallery</a></li><li><a href="ajs.ui.tree.mootree.html">mootree</a></li></ul><h3>Namespaces</h3><ul><li><a href="ajs.html">ajs</a></li><li><a href="ajs.maps.html">ajs.maps</a></li><li><a href="ajs.maps.gmapdraw.html">ajs.maps.gmapdraw</a></li><li><a href="ajs.shared.html">ajs.shared</a></li><li><a href="ajs.tools.html">ajs.tools</a></li><li><a href="ajs.ui.html">ajs.ui</a></li><li><a href="ajs.ui.tree.html">ajs.ui.tree</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> on Tue Jun 26 2012 15:16:15 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Fri Feb 22 2013 16:30:03 GMT+0100 (CET)
 </footer>
 
-<script> sh_highlightDocument(); </script>
+<script> prettyPrint(); </script>
 </body>
 </html>
