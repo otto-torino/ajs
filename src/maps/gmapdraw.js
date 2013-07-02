@@ -97,12 +97,23 @@ ajs.maps.gmapdraw.map = (function()  {
 
 			_private[this.id] = {};
 
-			if(typeOf($(canvas)) != 'element') {
+			if(typeOf(document.id(canvas)) != 'element') {
 				throw new Error('Canvas container not found');
 			}
 			else {
-				_private[this.id].canvas = $(canvas);
+				_private[this.id].super_canvas = document.id(canvas);
 			}
+
+      var super_canvas_coords = _private[this.id].super_canvas.getCoordinates();
+
+			_private[this.id].canvas = new Element('div', {id: 'gmapdraw_gmap_canvas'}).setStyles({
+        height: super_canvas_coords.height + 'px'
+      }).inject(_private[this.id].super_canvas);
+
+			_private[this.id].super_canvas.setStyles({
+        position: 'relative',
+        height: 'auto'
+      });
 
 			_options[this.id] = {
 				center: [45, 7],
@@ -157,12 +168,7 @@ ajs.maps.gmapdraw.map = (function()  {
 
 			// inject controllers container
 			var canvas_coord = _private[this.id].canvas.getCoordinates();
-			_private[this.id].ctrl_container.inject(document.body).setStyles({
-				position: 'absolute',
-				top: canvas_coord.top + 'px',
-				left: canvas_coord.left + 'px',
-				width: canvas_coord.width + 'px'
-			});
+			_private[this.id].ctrl_container.inject(_private[this.id].super_canvas, 'top');
 
 		}.protect(),
 		/**
@@ -193,7 +199,7 @@ ajs.maps.gmapdraw.map = (function()  {
 					var ctrl = _options[this.id].tools[tool_name].ctrl || null;
 					// set tool
 					if(ctrl) {
-						handler = typeOf(ctrl) === 'string' ? $(ctrl) : ctrl;
+						handler = typeOf(ctrl) === 'string' ? document.id(ctrl) : ctrl;
 						if(typeOf(handler) != 'element') {
 							throw new Error('The given control handler for the ' + tool_name + ' tool is not a DOM element');
 						}
@@ -323,7 +329,7 @@ ajs.maps.gmapdraw.map = (function()  {
 				_private[this.id].clear_map_ctrl.inject(_private[this.id].ctrl_container);
 			}
 			else if(_options[this.id].clear_map_ctrl) {
-				_private[this.id].clear_map_ctrl = typeOf(_options[this.id].clear_map_ctrl) === 'element' ? _options[this.id].clear_map_ctrl : $(_options[this.id].clear_map_ctrl);
+				_private[this.id].clear_map_ctrl = typeOf(_options[this.id].clear_map_ctrl) === 'element' ? _options[this.id].clear_map_ctrl : document.id(_options[this.id].clear_map_ctrl);
 				if(typeOf(_private[this.id].clear_map_ctrl) != 'element') {
 					throw new Error('The given clear map controller is not a DOM element');
 				}
@@ -359,7 +365,7 @@ ajs.maps.gmapdraw.map = (function()  {
 				_private[this.id].export_map_ctrl.inject(_private[this.id].ctrl_container);
 			}
 			else if(_options[this.id].export_map_ctrl) {
-				_private[this.id].export_map_ctrl = typeOf(_options[this.id].export_map_ctrl) === 'element' ? _options[this.id].export_map_ctrl : $(_options[this.id].export_map_ctrl);
+				_private[this.id].export_map_ctrl = typeOf(_options[this.id].export_map_ctrl) === 'element' ? _options[this.id].export_map_ctrl : document.id(_options[this.id].export_map_ctrl);
 				if(typeOf(_private[this.id].export_map_ctrl) != 'element') {
 					throw new Error('The given export map controller is not a DOM element');
 				}
@@ -395,7 +401,7 @@ ajs.maps.gmapdraw.map = (function()  {
 				_private[this.id].tips_map_ctrl.inject(_private[this.id].ctrl_container);
 			}
 			else if(_options[this.id].tips_map_ctrl) {
-				_private[this.id].tips_map_ctrl = typeOf(_options[this.id].tips_map_ctrl) === 'element' ? _options[this.id].tips_map_ctrl : $(_options[this.id].tips_map_ctrl);
+				_private[this.id].tips_map_ctrl = typeOf(_options[this.id].tips_map_ctrl) === 'element' ? _options[this.id].tips_map_ctrl : document.id(_options[this.id].tips_map_ctrl);
 				if(typeOf(_private[this.id].tips_map_ctrl) != 'element') {
 					throw new Error('The given tips map controller is not a DOM element');
 				}
@@ -836,7 +842,7 @@ ajs.maps.gmapdraw.tool = (function()  {
 		 */
 		setController: function(ctrl) {
 			if(typeOf(ctrl) === 'string' || typeOf(ctrl) === 'element') {
-				if(typeOf(ctrl) === 'string') _protected_prop[this.id].ctrl = $(ctrl);
+				if(typeOf(ctrl) === 'string') _protected_prop[this.id].ctrl = document.id(ctrl);
 				if(typeOf(_protected_prop[this.id].ctrl != 'element')) {
 					throw new Error('the given ctrl for the ' + _protected_prop[this.id].tool_name + 'tool is not a DOM element')
 				}
