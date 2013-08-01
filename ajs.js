@@ -77,25 +77,24 @@ ajs.use = function(mdls, callback) {
 		}	
 	}
 
-	for(var i = 0; i < mdls.length; i++) {
+	for(var i = 0, l = mdls.length; i < l; i++) {
 		
 		var mdl = mdls[i];
 		var src = root + 'src' + mdl.replace(/^ajs/, '').replace(/\./g, '/') + '.js';
 
-		var script = new Element('script', {type: 'text/javascript'});
+		var script = new Element('script', {type: 'text/javascript'}).store('mdl', mdl);
 
 		if (script.readyState) {  //IE
 			script.onreadystatechange = function(){
-            
-				if (script.readyState == "loaded" || script.readyState == "complete") {
-					script.onreadystatechange = null;
-					loaded(mdl);
+				if (this.readyState == "loaded" || this.readyState == "complete") {
+					this.onreadystatechange = null;
+					loaded(this.retrieve('mdl'));
 				}
 			};
 		} 
 		else {  //Others
 			script.onload = function(){
-				loaded(mdl);
+				loaded(this.retrieve('mdl'));
 			};
 		}
 
