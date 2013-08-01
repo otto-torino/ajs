@@ -4,7 +4,7 @@ ajs.css('moopopup.css');
 // look at initialize method for class description
 ajs.ui.moopopup = new Class({
 
-  Implements: [Options, Chain],
+  Implements: [Options, Chain, Events],
   options: {
     // window identifier
     id: 'moopopup',
@@ -38,10 +38,12 @@ ajs.ui.moopopup = new Class({
     text: null,
     // html node to get content from
     html_node: null,
-    // callback function called when closing the window
-    close_callback: null,
     // disable all active objects in the page when sowing the popoup
     disable_objects: true,
+    // function called when the window is displayed
+    onComplete: function() {},
+    // function called when the window is closed
+    onClose: function() {},
   },
   /**
    * @summary Layer window user interface.
@@ -66,8 +68,9 @@ ajs.ui.moopopup = new Class({
    * @param {String} [options.url=null] Url used to retrieve window contents through an ajax request.
    * @param {String} [options.text=null] The window content.
    * @param {String} [options.html_node=null] Html node to get the content from.
-   * @param {Function} [options.close_callback=null] Callback function called when closing the window.
    * @param {Boolean} [options.disable_objects=true] Whether or not to disable all active objects in the page when sowing the popoup.
+   * @param {Function} [options.onComplete=function(){}] Function called when the window is displayed
+   * @param {Function} [options.onClose=function(){}] Function called when the window is closed
    * @example
    *  var popup = new ajs.ui.moopopup({
    *    width: 800,
@@ -298,6 +301,7 @@ ajs.ui.moopopup = new Class({
       this.position();
       // ...and make it visible
       this.container.setStyle('visibility', 'visible');
+      this.fireEvent('complete');
     }
 
     // the popup is draggable?
@@ -335,6 +339,7 @@ ajs.ui.moopopup = new Class({
           self.position();
           // ... and make it visible
           self.container.setStyle('visibility', 'visible')
+          self.fireEvent('complete');
         }).delay(1000);
       }.bind(this)
     }).send();
@@ -523,12 +528,10 @@ ajs.ui.moopopup = new Class({
       if(this.options.overlay) {
         this.overlay_anim.start(0.7, 0).chain(function() { this.overlay.dispose(); }.bind(this));
       }
-      // is there a callback function?
-      if(typeOf(this.options.close_callback) == 'function') {
-        this.options.close_callback();
-      }
       this.showing = false;
+      this.fireEvent('close');
     }
 
   }
+
 });
